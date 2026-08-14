@@ -1,35 +1,69 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { GithubIcon } from "@/components/ui/BrandIcons";
+import fs from "fs";
+import path from "path";
+import Image from "next/image";
 import type { Project } from "@/types";
 
 export default function ProjectCard({ project }: { project: Project }) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="group relative flex h-full flex-col bg-[var(--color-surface)] border border-[var(--color-border)] p-6 md:p-7 transition-all duration-300 hover:border-[var(--color-terracotta-400)] hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(132,48,11,0.25)]"
-    >
-      <div className="absolute inset-x-0 top-0 h-[2px] scale-x-0 origin-left bg-[var(--color-terracotta-500)] transition-transform duration-500 group-hover:scale-x-100" />
+  // Only render the image if the file is actually present, so missing
+  // screenshots fall back to the placeholder instead of a broken image.
+  const hasImage =
+    !!project.image &&
+    fs.existsSync(path.join(process.cwd(), "public", project.image));
 
-      <div className="flex items-start justify-between gap-4 mb-3">
-        <span className="text-xs tracking-wider text-[var(--color-muted)]">
-          {project.year}
+  return (
+    <article className="flex flex-col">
+      <div className="relative aspect-[16/10] w-full overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
+        {hasImage ? (
+          <Image
+            src={project.image!}
+            alt={`${project.title} preview`}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-top"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-muted-soft)]">
+              Preview
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-5 flex items-baseline justify-between gap-4">
+        <h3 className="text-xl font-bold tracking-tight text-[var(--color-ink)]">
+          {project.title}
+        </h3>
+        <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-wide text-[var(--color-accent)]">
+          {project.category}
         </span>
-        <div className="flex gap-3 opacity-70 group-hover:opacity-100 transition-opacity">
+      </div>
+
+      <p className="mt-2 text-[var(--color-muted)] leading-relaxed">
+        {project.summary}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <span
+            key={tag}
+            className="border border-[var(--color-border)] px-2 py-1 font-mono text-[11px] uppercase tracking-wide text-[var(--color-muted)]"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {(project.repo || project.live) && (
+        <div className="mt-5 flex gap-6 font-mono text-xs uppercase tracking-wide">
           {project.repo && (
             <a
               href={project.repo}
               target="_blank"
               rel="noreferrer"
-              aria-label={`${project.title} GitHub`}
-              className="text-[var(--color-ink-soft)] hover:text-[var(--color-terracotta-600)]"
+              className="border-b border-transparent text-[var(--color-ink-soft)] transition-colors hover:border-current hover:text-[var(--color-accent)]"
             >
-              <GithubIcon size={16} strokeWidth={1.5} />
+              GitHub
             </a>
           )}
           {project.live && (
@@ -37,32 +71,13 @@ export default function ProjectCard({ project }: { project: Project }) {
               href={project.live}
               target="_blank"
               rel="noreferrer"
-              aria-label={`${project.title} live site`}
-              className="text-[var(--color-ink-soft)] hover:text-[var(--color-terracotta-600)]"
+              className="border-b border-transparent text-[var(--color-ink-soft)] transition-colors hover:border-current hover:text-[var(--color-accent)]"
             >
-              <ArrowUpRight size={16} strokeWidth={1.5} />
+              Live
             </a>
           )}
         </div>
-      </div>
-
-      <h3 className="font-[family-name:var(--font-display)] text-xl md:text-2xl text-[var(--color-ink)] tracking-tight mb-2">
-        {project.title}
-      </h3>
-      <p className="text-sm text-[var(--color-muted)] leading-relaxed flex-1">
-        {project.summary}
-      </p>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-[11px] tracking-wide uppercase px-2 py-1 bg-[var(--color-terracotta-50)] text-[var(--color-terracotta-700)]"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-    </motion.article>
+      )}
+    </article>
   );
 }

@@ -6,7 +6,8 @@ export type Project = {
   tags: string[];
   repo?: string;
   live?: string;
-  year: string;
+  image?: string;
+  category: string;
 };
 
 export type SkillGroup = {
@@ -18,13 +19,4 @@ export type SocialLinks = {
   email: string;
   github: string;
   linkedin: string;
-};
-
-export type WritingPost = {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-  readingTime: string;
 };

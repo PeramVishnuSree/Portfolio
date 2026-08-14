@@ -1,34 +1,44 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
 @theme {
-  /* Neutral palette (stone) */
-  --color-background: #fafaf9;
-  --color-surface: #ffffff;
-  --color-border: #e7e5e4;
-  --color-ink: #1c1917;
-  --color-ink-soft: #44403c;
-  --color-muted: #78716c;
-  --color-muted-soft: #a8a29e;
+  /* Monochrome slate palette */
+  --color-background: #ffffff;
+  --color-surface: #f4f6f8;
+  --color-border: #e4e7eb;
+  --color-ink: #0b1220;
+  --color-ink-soft: #334155;
+  --color-muted: #64748b;
+  --color-muted-soft: #94a3b8;
 
   /* Terracotta accent */
-  --color-terracotta-50: #fbf3ef;
-  --color-terracotta-100: #f5ddd6;
-  --color-terracotta-200: #eab8a8;
-  --color-terracotta-300: #dc8e77;
-  --color-terracotta-400: #cc6a4d;
-  --color-terracotta-500: #c1440e;
-  --color-terracotta-600: #a83a0a;
-  --color-terracotta-700: #84300b;
+  --color-accent: #c1440e;
+  --color-accent-soft: #f7ede8;
 
   /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
 }
 
 :root {
   color-scheme: light;
+}
+
+/* Dark theme — near-black navy, same slate accents lifted for contrast */
+html.dark {
+  color-scheme: dark;
+
+  --color-background: #0a0d13;
+  --color-surface: #12161f;
+  --color-border: #232a36;
+  --color-ink: #f3f5f8;
+  --color-ink-soft: #c2cad6;
+  --color-muted: #8a97a8;
+  --color-muted-soft: #5d6a7d;
+
+  --color-accent: #e07a53;
+  --color-accent-soft: #2b1b13;
 }
 
 html {
@@ -39,27 +49,20 @@ body {
   background: var(--color-background);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-terracotta-100);
-  color: var(--color-terracotta-700);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
-/* Editorial decorative rule */
+/* Thin hairline rule */
 .rule {
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-terracotta-400) 20%,
-    var(--color-terracotta-400) 80%,
-    transparent
-  );
+  background: var(--color-border);
 }
 
 /* Respect reduced motion */
@@ -71,24 +74,4 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* Prose overrides for writing pages */
-.prose-editorial {
-  --tw-prose-body: var(--color-ink-soft);
-  --tw-prose-headings: var(--color-ink);
-  --tw-prose-links: var(--color-terracotta-600);
-  --tw-prose-bold: var(--color-ink);
-  --tw-prose-quotes: var(--color-ink);
-  --tw-prose-quote-borders: var(--color-terracotta-400);
-  --tw-prose-code: var(--color-terracotta-700);
-  --tw-prose-hr: var(--color-border);
-}
-
-.prose-editorial h1,
-.prose-editorial h2,
-.prose-editorial h3 {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.015em;
 }
