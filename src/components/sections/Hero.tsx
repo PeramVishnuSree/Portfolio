@@ -19,13 +19,16 @@ export default function Hero() {
             <strong className="font-semibold text-[var(--color-accent)]">
               M.S. student at SJSU
             </strong>
-            . I build LLM-based agents and the systems around them — retrieval,
-            memory, orchestration, and evaluation — and I care about taking
-            things from{" "}
+            , focused on building{" "}
             <strong className="font-semibold text-[var(--color-accent)]">
-              prototype to production
-            </strong>
-            . Always happy to talk shop.{" "}
+              LLM-based agents
+            </strong>{" "}
+            and the systems around them. I also enjoy working across the{" "}
+            <strong className="font-semibold text-[var(--color-accent)]">
+              ML pipeline
+            </strong>{" "}
+            from cleaning and preparing data to training, evaluating, and
+            deploying models. Always happy to talk shop.{" "}
             <a
               href="#contact"
               className="font-semibold text-[var(--color-accent)] underline decoration-[var(--color-accent)]/40 underline-offset-4 transition-colors hover:decoration-[var(--color-accent)]"

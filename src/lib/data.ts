@@ -9,7 +9,7 @@ export const personal = {
   headline:
     "Artificial Intelligence M.S. student at SJSU. Building agentic systems that reason and act.",
   summary:
-    "I'm Vishnu Peram — I build LLM-based agents and the systems around them: tools, retrieval, memory, orchestration, and evaluation. I also ship full-stack applications end to end.",
+    "AI engineer and M.S. student at SJSU, focused on building LLM-based agents and the systems around them, and comfortable across the full ML pipeline from data preparation to deployment.",
 };
 
 export const socialLinks: SocialLinks = {
