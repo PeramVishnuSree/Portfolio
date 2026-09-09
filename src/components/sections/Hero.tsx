@@ -1,4 +1,5 @@
 import Section from "@/components/ui/Section";
+import AssistantPanel from "@/components/chat/AssistantPanel";
 
 export default function Hero() {
   return (
@@ -39,8 +40,10 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Right column reserved for the AI assistant (integration coming later) */}
-        <div aria-hidden className="hidden lg:block" />
+        {/* AI assistant — stacks below the intro on mobile, sits to the right on desktop */}
+        <div className="w-full">
+          <AssistantPanel />
+        </div>
       </div>
     </Section>
   );
