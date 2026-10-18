@@ -47,9 +47,9 @@ function RichText({ text }: { text: string }) {
 
 const SUGGESTIONS = [
   "What projects has Vishnu built?",
-  "What's his experience with LLMs and agents?",
-  "What's his tech stack?",
-  "Is he open to new opportunities?",
+  "What's her experience with LLMs and agents?",
+  "What's her tech stack?",
+  "Is she open to new opportunities?",
 ];
 
 const MAX_INPUT = 500;
