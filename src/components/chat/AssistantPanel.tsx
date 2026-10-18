@@ -1,9 +1,48 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import { Send } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
+
+// Lightweight renderer: strips stray markdown emphasis and turns
+// [label](url) / bare URLs into links. Internal #anchors scroll the page;
+// external links open in a new tab.
+function RichText({ text }: { text: string }) {
+  const cleaned = text
+    .replace(/\*\*(.*?)\*\*/gs, "$1")
+    .replace(/\*\*/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^\s*#{1,6}\s+/gm, "");
+
+  const nodes: ReactNode[] = [];
+  const re =
+    /\[([^\]]+)\]\(([^)\s]+)\)|(https?:\/\/[^\s)]*[^\s).,;:!?'"])/g;
+  let last = 0;
+  let key = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(cleaned)) !== null) {
+    if (m.index > last) nodes.push(cleaned.slice(last, m.index));
+    const label = m[1] ?? m[3];
+    const url = m[2] ?? m[3];
+    const internal = url.startsWith("#");
+    nodes.push(
+      <a
+        key={key++}
+        href={url}
+        {...(internal ? {} : { target: "_blank", rel: "noreferrer" })}
+        className="text-[var(--color-accent)] underline underline-offset-2 hover:opacity-80"
+      >
+        {label}
+      </a>
+    );
+    last = re.lastIndex;
+  }
+  if (last < cleaned.length) nodes.push(cleaned.slice(last));
+
+  return <span className="whitespace-pre-wrap">{nodes}</span>;
+}
 
 const SUGGESTIONS = [
   "What projects has Vishnu built?",
@@ -101,7 +140,7 @@ export default function AssistantPanel() {
           ) : (
             <div key={i} className="flex">
               <div className="max-w-[90%] text-sm leading-relaxed text-[var(--color-ink-soft)]">
-                {m.content}
+                <RichText text={m.content} />
               </div>
             </div>
           )
