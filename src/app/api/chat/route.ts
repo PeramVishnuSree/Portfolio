@@ -100,9 +100,14 @@ export async function POST(req: NextRequest) {
     });
 
     if (!res.ok) {
-      console.error("Groq error", res.status);
-      return reply(
-        `Sorry, I hit a snag answering that. You can reach Vishnu directly at ${socialLinks.email}.`
+      const errText = await res.text();
+      console.error("Groq error", res.status, errText);
+      return Response.json(
+        {
+          reply: `Sorry, I hit a snag answering that. You can reach Vishnu directly at ${socialLinks.email}.`,
+          _debug: { status: res.status, model: MODEL, body: errText.slice(0, 400) },
+        },
+        { status: 200 }
       );
     }
 
