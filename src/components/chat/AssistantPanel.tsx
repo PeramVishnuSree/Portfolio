@@ -14,11 +14,12 @@ function RichText({ text }: { text: string }) {
     .replace(/\*\*([\s\S]*?)\*\*/g, "$1")
     .replace(/\*\*/g, "")
     .replace(/`([^`]+)`/g, "$1")
-    .replace(/^\s*#{1,6}\s+/gm, "");
+    .replace(/^\s*#{1,6}\s+/gm, "")
+    .replace(/<(https?:\/\/[^>\s]+)>/g, "$1"); // unwrap <url> autolinks
 
   const nodes: ReactNode[] = [];
   const re =
-    /\[([^\]]+)\]\(([^)\s]+)\)|(https?:\/\/[^\s)]*[^\s).,;:!?'"])/g;
+    /\[([^\]]+)\]\(([^)\s]+)\)|(https?:\/\/[^\s)<>]*[^\s).,;:!?'"<>])/g;
   let last = 0;
   let key = 0;
   let m: RegExpExecArray | null;
@@ -46,9 +47,9 @@ function RichText({ text }: { text: string }) {
 
 const SUGGESTIONS = [
   "What projects has Vishnu built?",
-  "What's his experience with LLMs and agents?",
-  "What's his tech stack?",
-  "Is he open to new opportunities?",
+  "What's her experience with LLMs and agents?",
+  "What's her tech stack?",
+  "Is she open to new opportunities?",
 ];
 
 const MAX_INPUT = 500;
