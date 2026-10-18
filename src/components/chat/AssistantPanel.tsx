@@ -11,7 +11,7 @@ type Message = { role: "user" | "assistant"; content: string };
 // external links open in a new tab.
 function RichText({ text }: { text: string }) {
   const cleaned = text
-    .replace(/\*\*(.*?)\*\*/gs, "$1")
+    .replace(/\*\*([\s\S]*?)\*\*/g, "$1")
     .replace(/\*\*/g, "")
     .replace(/`([^`]+)`/g, "$1")
     .replace(/^\s*#{1,6}\s+/gm, "");
