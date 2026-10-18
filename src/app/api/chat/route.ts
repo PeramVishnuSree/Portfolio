@@ -5,7 +5,7 @@ import { personal, socialLinks } from "@/lib/data";
 export const runtime = "edge";
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
 
 // --- Safety limits ---
 const MAX_MESSAGE_CHARS = 1000; // per message
@@ -42,20 +42,6 @@ ${buildPortfolioContext()}`;
 
 function reply(text: string, status = 200) {
   return Response.json({ reply: text }, { status });
-}
-
-// TEMP debug: list available Groq models
-export async function GET() {
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) return Response.json({ error: "no key" });
-  const res = await fetch("https://api.groq.com/openai/v1/models", {
-    headers: { Authorization: `Bearer ${apiKey}` },
-  });
-  const data = await res.json();
-  const ids = Array.isArray(data?.data)
-    ? data.data.map((m: { id: string }) => m.id).sort()
-    : data;
-  return Response.json({ ids });
 }
 
 export async function POST(req: NextRequest) {
@@ -108,20 +94,15 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: MODEL,
         temperature: 0.2,
-        max_tokens: 300,
+        max_tokens: 512,
         messages: [{ role: "system", content: systemPrompt() }, ...history],
       }),
     });
 
     if (!res.ok) {
-      const errText = await res.text();
-      console.error("Groq error", res.status, errText);
-      return Response.json(
-        {
-          reply: `Sorry, I hit a snag answering that. You can reach Vishnu directly at ${socialLinks.email}.`,
-          _debug: { status: res.status, model: MODEL, body: errText.slice(0, 400) },
-        },
-        { status: 200 }
+      console.error("Groq error", res.status, await res.text());
+      return reply(
+        `Sorry, I hit a snag answering that. You can reach Vishnu directly at ${socialLinks.email}.`
       );
     }
 
