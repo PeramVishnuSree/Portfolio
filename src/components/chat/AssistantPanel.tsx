@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
 
-type EmailDraft = { to: string; subject: string; body: string };
-
-type Message = {
-  role: "user" | "assistant";
-  content: string;
-  email?: EmailDraft;
-};
+type Message = { role: "user" | "assistant"; content: string };
 
 const SUGGESTIONS = [
   "What projects has Vishnu built?",
@@ -18,13 +12,7 @@ const SUGGESTIONS = [
   "Is he open to new opportunities?",
 ];
 
-function mailtoHref(email: EmailDraft) {
-  const params = new URLSearchParams({
-    subject: email.subject,
-    body: email.body,
-  });
-  return `mailto:${email.to}?${params.toString()}`;
-}
+const MAX_INPUT = 500;
 
 export default function AssistantPanel() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -49,9 +37,7 @@ export default function AssistantPanel() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: next.map((m) => ({ role: m.role, content: m.content })),
-        }),
+        body: JSON.stringify({ messages: next }),
       });
       const data = await res.json();
       setMessages((m) => [
@@ -62,7 +48,6 @@ export default function AssistantPanel() {
             typeof data?.reply === "string" && data.reply
               ? data.reply
               : "Sorry, I couldn't answer that. Try rephrasing?",
-          email: data?.email,
         },
       ]);
     } catch {
@@ -91,10 +76,7 @@ export default function AssistantPanel() {
         </p>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex-1 space-y-4 overflow-y-auto px-5 py-4"
-      >
+      <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
         {isEmpty && !loading && (
           <div className="flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => (
@@ -117,36 +99,10 @@ export default function AssistantPanel() {
               </div>
             </div>
           ) : (
-            <div key={i} className="flex flex-col items-start">
+            <div key={i} className="flex">
               <div className="max-w-[90%] text-sm leading-relaxed text-[var(--color-ink-soft)]">
                 {m.content}
               </div>
-              {m.email && (
-                <div className="mt-3 w-full border border-[var(--color-border)] bg-[var(--color-background)] p-3">
-                  <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-soft)]">
-                    Email preview
-                  </p>
-                  <dl className="space-y-1 text-xs text-[var(--color-ink-soft)]">
-                    <div className="flex gap-2">
-                      <dt className="text-[var(--color-muted)]">To</dt>
-                      <dd>{m.email.to}</dd>
-                    </div>
-                    <div className="flex gap-2">
-                      <dt className="text-[var(--color-muted)]">Subject</dt>
-                      <dd>{m.email.subject}</dd>
-                    </div>
-                  </dl>
-                  <p className="mt-2 whitespace-pre-wrap border-t border-[var(--color-border)] pt-2 text-xs leading-relaxed text-[var(--color-ink-soft)]">
-                    {m.email.body}
-                  </p>
-                  <a
-                    href={mailtoHref(m.email)}
-                    className="mt-3 inline-block bg-[var(--color-accent)] px-3 py-1.5 font-mono text-xs uppercase tracking-wide text-white transition-opacity hover:opacity-90"
-                  >
-                    Send email
-                  </a>
-                </div>
-              )}
             </div>
           )
         )}
@@ -170,6 +126,7 @@ export default function AssistantPanel() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          maxLength={MAX_INPUT}
           placeholder="Ask about my work…"
           aria-label="Ask a question about Vishnu"
           className="min-w-0 flex-1 bg-transparent px-2 py-1.5 text-sm text-[var(--color-ink)] outline-none placeholder:text-[var(--color-muted-soft)]"
