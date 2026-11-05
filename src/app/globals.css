@@ -4,12 +4,12 @@
 @theme {
   /* Warm stone palette (light) */
   --color-background: #f6f4ef;
-  --color-surface: #ece6dc;
-  --color-border: #e2dbcf;
-  --color-ink: #211d19;
-  --color-ink-soft: #4c453c;
-  --color-muted: #6e665a;
-  --color-muted-soft: #a89e8e;
+  --color-surface: #e6dccb;
+  --color-border: #d4c9b4;
+  --color-ink: #1d1915;
+  --color-ink-soft: #453e35;
+  --color-muted: #6a6155;
+  --color-muted-soft: #978b79;
 
   /* Terracotta accent */
   --color-accent: #c1440e;
@@ -24,6 +24,9 @@
 
 :root {
   color-scheme: light;
+
+  /* Paper grain */
+  --grain-opacity: 0.5;
 }
 
 /* Dark theme — near-black navy, same slate accents lifted for contrast */
@@ -40,6 +43,9 @@ html.dark {
 
   --color-accent: #e07a53;
   --color-accent-soft: #2b1b13;
+
+  /* Paper grain is a light-mode treatment; keep dark mode as-is */
+  --grain-opacity: 0;
 }
 
 html {

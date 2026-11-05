@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import BackgroundArt from "@/components/layout/BackgroundArt";
 import { personal } from "@/lib/data";
 
 const inter = Inter({
@@ -49,6 +50,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
+        <BackgroundArt />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
