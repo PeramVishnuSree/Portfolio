@@ -8,7 +8,7 @@ const links = [
 
 export default function Contact() {
   return (
-    <Section id="contact" number="04" label="Contact">
+    <Section id="contact" number="05" label="Contact">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--color-ink)]">

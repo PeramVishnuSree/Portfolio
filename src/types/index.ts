@@ -20,3 +20,30 @@ export type SocialLinks = {
   github: string;
   linkedin: string;
 };
+
+export type PaperRef = {
+  title: string;
+  authors?: string;
+  year?: number;
+  url: string;
+};
+
+export type ImplementationLink = {
+  label: string;
+  url: string;
+};
+
+export type WritingPostMeta = {
+  slug: string;
+  title: string;
+  date: string;
+  summary: string;
+  tags: string[];
+  paper?: PaperRef;
+  implementation?: ImplementationLink[];
+  readingTime: string;
+};
+
+export type WritingPost = WritingPostMeta & {
+  content: string;
+};
