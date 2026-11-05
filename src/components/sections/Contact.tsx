@@ -1,9 +1,10 @@
 import { socialLinks } from "@/lib/data";
 import Section from "@/components/ui/Section";
+import { GithubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 
 const links = [
-  { label: "GitHub", href: socialLinks.github },
-  { label: "LinkedIn", href: socialLinks.linkedin },
+  { label: "GitHub", href: socialLinks.github, Icon: GithubIcon },
+  { label: "LinkedIn", href: socialLinks.linkedin, Icon: LinkedInIcon },
 ];
 
 export default function Contact() {
@@ -11,7 +12,7 @@ export default function Contact() {
     <Section id="contact" number="05" label="Contact">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         <div>
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--color-ink)]">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--color-ink)]">
             Get in touch.
           </h2>
           <p className="mt-4 max-w-md text-[var(--color-muted)] leading-relaxed">
@@ -28,16 +29,19 @@ export default function Contact() {
             {socialLinks.email}
           </a>
 
-          <div className="mt-8 flex gap-6 font-mono text-xs uppercase tracking-wide">
-            {links.map((link) => (
+          <div className="mt-8 flex gap-6 font-mono text-sm uppercase tracking-wide">
+            {links.map(({ label, href, Icon }) => (
               <a
-                key={link.label}
-                href={link.href}
+                key={label}
+                href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="border-b border-transparent text-[var(--color-ink-soft)] transition-colors hover:border-current hover:text-[var(--color-accent)]"
+                className="group inline-flex items-center gap-2 text-[var(--color-ink-soft)] transition-colors hover:text-[var(--color-accent)]"
               >
-                {link.label}
+                <Icon size={18} />
+                <span className="border-b border-transparent group-hover:border-current">
+                  {label}
+                </span>
               </a>
             ))}
           </div>

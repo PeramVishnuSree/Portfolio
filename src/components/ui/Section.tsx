@@ -26,11 +26,11 @@ export default function Section({
             {/* Sticks in the left margin while scrolling through the section,
                 so the current section's title stays visible. */}
             <div className="flex items-baseline gap-3 md:sticky md:top-24 md:block">
-              <span className="font-mono text-base font-semibold text-[var(--color-accent)]">
+              <span className="font-mono text-lg font-semibold text-[var(--color-accent)]">
                 {number}
               </span>
               {label && (
-                <p className="font-mono text-xs uppercase tracking-[0.2em] font-medium text-[var(--color-accent)] md:mt-2">
+                <p className="font-mono text-sm uppercase tracking-[0.2em] font-medium text-[var(--color-accent)] md:mt-2">
                   {label}
                 </p>
               )}

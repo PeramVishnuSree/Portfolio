@@ -23,7 +23,7 @@ export default function WritingList({ posts }: { posts: WritingPostMeta[] }) {
           className="group block py-6 md:py-7"
         >
           <div className="flex items-baseline justify-between gap-4">
-            <h3 className="text-lg md:text-xl font-bold tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
+            <h3 className="text-xl md:text-2xl font-bold tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
               {post.title}
             </h3>
             <span className="shrink-0 font-mono text-xs text-[var(--color-muted-soft)]">
