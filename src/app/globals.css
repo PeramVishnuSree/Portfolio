@@ -2,18 +2,18 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* Monochrome slate palette */
-  --color-background: #ffffff;
-  --color-surface: #f4f6f8;
-  --color-border: #e4e7eb;
-  --color-ink: #0b1220;
-  --color-ink-soft: #334155;
-  --color-muted: #64748b;
-  --color-muted-soft: #94a3b8;
+  /* Warm stone palette (light) */
+  --color-background: #f6f4ef;
+  --color-surface: #ece6dc;
+  --color-border: #e2dbcf;
+  --color-ink: #211d19;
+  --color-ink-soft: #4c453c;
+  --color-muted: #6e665a;
+  --color-muted-soft: #a89e8e;
 
   /* Terracotta accent */
   --color-accent: #c1440e;
-  --color-accent-soft: #f7ede8;
+  --color-accent-soft: #f1e3d8;
 
   /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
