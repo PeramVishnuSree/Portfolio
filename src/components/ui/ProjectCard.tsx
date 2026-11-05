@@ -31,7 +31,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="mt-5 flex items-baseline justify-between gap-4">
-        <h3 className="text-xl font-bold tracking-tight text-[var(--color-ink)]">
+        <h3 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">
           {project.title}
         </h3>
         <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-wide text-[var(--color-accent)]">

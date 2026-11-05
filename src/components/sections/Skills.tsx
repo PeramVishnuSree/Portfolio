@@ -7,7 +7,7 @@ export default function Skills() {
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
         {skills.map((group) => (
           <div key={group.name}>
-            <h3 className="mb-5 text-base font-bold tracking-tight text-[var(--color-ink)]">
+            <h3 className="mb-5 text-lg font-bold tracking-tight text-[var(--color-ink)]">
               {group.name}
             </h3>
             <ul className="space-y-2.5">
