@@ -3,7 +3,7 @@ import { skills } from "@/lib/data";
 
 export default function Skills() {
   return (
-    <Section id="stack" number="03" label="Stack">
+    <Section id="stack" number="04" label="Stack">
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
         {skills.map((group) => (
           <div key={group.name}>
