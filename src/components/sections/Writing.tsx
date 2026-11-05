@@ -8,7 +8,7 @@ export default function Writing() {
   if (posts.length === 0) return null;
 
   return (
-    <Section id="writing" number="04" label="Writing">
+    <Section id="writing" number="03" label="Writing">
       <WritingList posts={posts} />
       <Link
         href="/writing"
