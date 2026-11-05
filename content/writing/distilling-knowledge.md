@@ -8,6 +8,9 @@ paper:
   authors: "Hinton, Vinyals & Dean"
   year: 2015
   url: "https://arxiv.org/abs/1503.02531"
+implementation:
+  - label: "My reproduction on GitHub"
+    url: "https://github.com/PeramVishnuSree/Experiments-in-Deep-Learning/tree/main/Distilling%20the%20Knowledge%20in%20a%20Neural%20Network"
 ---
 
 This article is my reiteration of and reflection on the paper "Distilling the Knowledge in a Neural Network" by Geoffrey Hinton, Oriol Vinyals, and Jeff Dean at Google (Hinton et al., 2015). The paper is about training smaller networks to learn knowledge and generalization from larger and bulkier networks or ensembles of networks. Smaller networks are easier and more realistic to use for real-time tasks, and they also save compute and time. However, a smaller network trained on the raw data alone usually doesn't generalize as well as a larger one. In this paper, the authors build on earlier work on model compression by Caruana and his collaborators (Buciluă et al., 2006) and propose a training technique called "distillation" that enables smaller networks to learn from larger networks and generalize well to unseen data.
